@@ -1,2 +1,8 @@
-cd `dirname $0`/../../
-echo "#define REPO_VERSION \"$(git describe --dirty --always --tags)\"" > ./repo_version.h
+cd `dirname $0`
+GIT_DESCRIBE=`cat ../git_describe.txt`
+
+cd ../../
+echo "#define REPO_VERSION \"$($GIT_DESCRIBE)\"" > ./repo_version.h
+
+echo "Version information: $($GIT_DESCRIBE)"
+echo "Version information header file path: `pwd`/repo_version.h"

@@ -1,3 +1,11 @@
-cd %~dp0..\..\
-for /F %%i in ('git describe --dirty --always --tags') do ( set VERSION=%%i)
-echo #define REPO_VERSION "%VERSION%" > ./repo_version.h
+@echo off
+
+cd %~dp0
+set /P GIT_DESCRIBE=<..\git_describe.txt
+
+cd ..\..\
+for /F %%i in ('%GIT_DESCRIBE%') do ( set VERSION=%%i)
+echo #define REPO_VERSION "%VERSION%" > .\repo_version.h
+
+echo Version information: %VERSION%
+echo Version information header file path: %~dp0repo_version.h
